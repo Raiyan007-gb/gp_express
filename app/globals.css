@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f1536;
+  --foreground: #ffffff;
+  --primary: #19aaf8;
+  --secondary: #0fdafd;
+  --accent: #4fbdf9;
+  --card-bg: rgba(15, 21, 54, 0.7);
+  --border-light: rgba(79, 189, 249, 0.2);
+  --border-medium: rgba(79, 189, 249, 0.4);
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 @theme inline {
@@ -12,15 +19,63 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-image: radial-gradient(circle at 50% 50%, rgba(25, 170, 248, 0.1), transparent 70%);
+}
+
+/* Modern UI styles */
+.rounded-lg {
+  border-radius: 0.75rem;
+}
+
+.shadow-modern {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-modern:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Glass effect */
+.glass-effect {
+  background: rgba(15, 21, 54, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(79, 189, 249, 0.2);
+}
+
+/* Gradient effects */
+.gradient-blue {
+  background: linear-gradient(135deg, #19aaf8, #0fdafd);
+  transition: all 0.3s ease;
+}
+
+.gradient-blue:hover {
+  background: linear-gradient(135deg, #0fdafd, #19aaf8);
+  transform: translateY(-2px);
+}
+
+/* Animation utilities */
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* Card styling */
+.card-modern {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.card-modern:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
 }
