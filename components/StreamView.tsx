@@ -130,7 +130,7 @@ const StreamView: React.FC<StreamViewProps> = ({ stats }) => {
         />
       ) : (
         <Image 
-          src="https://webcam.privcom.ch/mjpg/video.mjpg"
+          src="https://csea-me-webcam.cse.umn.edu/mjpg/video.mjpg"
           alt="Live Stream"
           className={`w-full h-full ${isFullScreen && window.innerWidth <= 1024 ? 'object-cover' : 'object-contain'}`}
           width={0}
