@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Button } from "./ui/button";
-
+import Image from "next/image";
 interface StreamViewProps {
   streamUrl: string;
   stats?: {
@@ -106,10 +106,20 @@ const StreamView: React.FC<StreamViewProps> = ({ streamUrl, stats }) => {
         </div>
       )}
       
-      <img 
+      {/* <img 
         src={streamUrl} 
         alt="Live Stream"
         className={`w-full h-full ${isFullScreen && window.innerWidth <= 1024 ? 'object-cover' : 'object-contain'}`}
+      /> */}
+      <Image 
+        src="http://localhost:8000/video-feed" 
+        alt="Live Stream"
+        className={`w-full h-full ${isFullScreen && window.innerWidth <= 1024 ? 'object-cover' : 'object-contain'}`}
+        width={0}  // Allows width to be controlled by CSS
+        height={0} // Allows height to be controlled by CSS
+        sizes="100vw" // Ensures responsive scaling
+        priority={true} // Preload for live stream
+        unoptimized={true} // Important for MJPG streams
       />
       
       {/* Fullscreen button */}
