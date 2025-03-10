@@ -23,8 +23,8 @@ export default function LoginPage() {
         if (userData.email === 'admin@tdi.com') {
           router.push('/');
         }
-      } catch (e) {
-        console.error('Token verification failed:', error);
+      } catch (err) {
+        console.error('Token verification failed:', err);
         // Invalid token, clear it
         document.cookie = 'admin_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       }
@@ -44,7 +44,7 @@ export default function LoginPage() {
     }
 
     // Check credentials
-    if (email === 'admin@tdi.com' && password === 'tdiadmingpexpress') {
+    if (email === 'admin@tdi.com' && password === 'gpexpress') {
       // Create encrypted session token
       const userData = { email, timestamp: new Date().getTime() };
       const encrypted = encryptData(JSON.stringify(userData));

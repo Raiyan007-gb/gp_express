@@ -1,8 +1,13 @@
 import React, { useState, useRef } from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+// @ts-expect-error - JSMpeg doesn't have TypeScript definitions
+import JSMpeg from '@cycjimmy/jsmpeg-player';
+import { useEffect } from 'react';
+
+// Remove Image import since we don't need it anymore
+
 interface StreamViewProps {
-  streamUrl: string;
   stats?: {
     personCount: number;
     maleCount: number;
@@ -10,9 +15,47 @@ interface StreamViewProps {
   };
 }
 
-const StreamView: React.FC<StreamViewProps> = ({ streamUrl, stats }) => {
+const StreamView: React.FC<StreamViewProps> = ({ stats }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const streamContainerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const playerRef = useRef<any>(null);
+  const [streamType, setStreamType] = useState<'rtsp' | 'mjpg'>('rtsp');
+
+  useEffect(() => {
+    const wsUrl = 'ws://localhost:9999'; // Change this to switch between streams
+    setStreamType(wsUrl.includes('9998') ? 'mjpg' : 'rtsp');
+
+    if (wsUrl.includes('9999') && canvasRef.current) {
+      console.log('Attempting to connect to RTSP WebSocket:', wsUrl);
+      try {
+        playerRef.current = new JSMpeg.Player(wsUrl + '/stream', {
+          canvas: canvasRef.current,
+          autoplay: true,
+          audio: false,
+          loop: true,
+          onSourceEstablished: () => {
+            console.log('Stream source established');
+          },
+          onSourceCompleted: () => {
+            console.log('Stream source completed');
+          },
+          onError: (error: any) => {
+            console.error('JSMpeg error:', error);
+          }
+        });
+      } catch (error) {
+        console.error('Error creating JSMpeg player:', error);
+      }
+    }
+
+    return () => {
+      if (playerRef.current) {
+        console.log('Destroying player');
+        playerRef.current.destroy();
+      }
+    };
+  }, []);
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -80,10 +123,23 @@ const StreamView: React.FC<StreamViewProps> = ({ streamUrl, stats }) => {
       ref={streamContainerRef}
       className="w-full h-full rounded-lg overflow-hidden bg-black relative shadow-modern border border-accent/20 hover-scale"
     >
-      <div className="absolute top-0 left-0 w-full p-3 glass-effect z-10 flex justify-between items-center">
-        <h3 className="text-green-500 font-medium">Live Stream</h3>
-        <div className="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
-      </div>
+      {streamType === 'rtsp' ? (
+        <canvas 
+          ref={canvasRef}
+          className="w-full h-full"
+        />
+      ) : (
+        <Image 
+          src="https://webcam.privcom.ch/mjpg/video.mjpg"
+          alt="Live Stream"
+          className={`w-full h-full ${isFullScreen && window.innerWidth <= 1024 ? 'object-cover' : 'object-contain'}`}
+          width={0}
+          height={0}
+          sizes="100vw"
+          priority={true}
+          unoptimized={true}
+        />
+      )}
       
       {/* Stats overlay in fullscreen mode */}
       {isFullScreen && stats && (
@@ -106,21 +162,7 @@ const StreamView: React.FC<StreamViewProps> = ({ streamUrl, stats }) => {
         </div>
       )}
       
-      {/* <img 
-        src={streamUrl} 
-        alt="Live Stream"
-        className={`w-full h-full ${isFullScreen && window.innerWidth <= 1024 ? 'object-cover' : 'object-contain'}`}
-      /> */}
-      <Image 
-        src="http://localhost:8000/video-feed" 
-        alt="Live Stream"
-        className={`w-full h-full ${isFullScreen && window.innerWidth <= 1024 ? 'object-cover' : 'object-contain'}`}
-        width={0}  // Allows width to be controlled by CSS
-        height={0} // Allows height to be controlled by CSS
-        sizes="100vw" // Ensures responsive scaling
-        priority={true} // Preload for live stream
-        unoptimized={true} // Important for MJPG streams
-      />
+      {/* Remove Image component since we're using canvas for the stream */}
       
       {/* Fullscreen button */}
       <div className="absolute bottom-4 right-4 z-10">
