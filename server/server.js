@@ -24,7 +24,7 @@ app.use(cors());
 
 // Redis connection
 const redis = new Redis({
-  host: '100.104.12.47', // Your Raspberry Pi's Tailscale IP
+  host: '100.117.70.128', // Your Raspberry Pi's Tailscale IP
   port: 6379,
   password: 'tdiexpress007',
   connectTimeout: 10000,
@@ -46,7 +46,7 @@ redis.on('error', (err) => {
 
 // Create a duplicate connection for pub/sub
 const redisSub = new Redis({
-  host: '100.104.12.47',
+  host: '100.117.70.128',
   port: 6379,
   password: 'tdiexpress007',
   connectTimeout: 10000

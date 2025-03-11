@@ -533,7 +533,8 @@ const StreamView: React.FC<StreamViewProps> = ({ stats, streamType = 'rtsp' }) =
     } else if (streamType === 'redis') {
       console.log('Connecting to Redis stream socket');
       // Connect to the Node.js server that serves Redis frames
-      socketRef.current = io('http://localhost:9996');
+      // socketRef.current = io('http://localhost:9996');
+      socketRef.current = io('https://ordering-sphere-lab-coast.trycloudflare.com');       
       
       socketRef.current.on('connect', () => {
         console.log('Connected to Redis stream server');

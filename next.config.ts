@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['webcam.privcom.ch'], // Replace with your stream URL's hostname
   },
+  
 };
 
 export default nextConfig;

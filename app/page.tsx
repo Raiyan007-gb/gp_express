@@ -150,7 +150,9 @@ export default function Home() {
   // Fetch stats from FastAPI backend
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/analytics'); // FastAPI endpoint
+      // const response = await fetch('http://127.0.0.1:5000/analytics'); // FastAPI endpoint
+      const response = await fetch('https://authorized-turkey-authorized-painting.trycloudflare.com/analytics'); // FastAPI endpoint
+      
       if (response.ok) {
         const data = await response.json();
         // Only update the person count (currentInFrame)
@@ -170,7 +172,7 @@ export default function Home() {
   // Fetch stats when the component mounts, and set up an interval for continuous updates
   useEffect(() => {
     fetchStats(); // Fetch initial stats
-    const interval = setInterval(fetchStats, 5000); // Fetch every 5 seconds for real-time updates
+    const interval = setInterval(fetchStats, 1000); // Fetch every 5 seconds for real-time updates
 
     // Clean up the interval on component unmount
     return () => clearInterval(interval);
