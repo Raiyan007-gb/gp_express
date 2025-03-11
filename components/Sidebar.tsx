@@ -81,7 +81,8 @@ const Sidebar: React.FC<SidebarProps> = ({ stats, onSwitchStream }) => {
           className="w-full text-lg py-6 gradient-blue shadow-modern"
           size="lg"
         >
-          Switch Stream
+          {/* Switch Bus */}
+          Refresh
         </Button>
         
         <Button

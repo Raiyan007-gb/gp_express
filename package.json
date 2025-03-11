@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"node server/server.js\" \"next dev -p 3000\"",
     "build": "next build",
     "start": "concurrently \"node server/rtsp-server.js\" \"next start\"",
     "start:prod": "npm run build && npm run start",
