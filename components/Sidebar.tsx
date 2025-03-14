@@ -40,12 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ stats, onSwitchStream }) => {
     setCurrentDateTime(formattedDateTime);
   };
 
-  const handleSignOut = () => {
-    // Clear the authentication cookie
-    document.cookie = 'admin_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    // Redirect to login page
-    router.push('/login');
-  };
+  
 
   return (
     <div className="h-full flex flex-col bg-background/80 p-6 rounded-lg shadow-modern space-y-8 border border-primary">
@@ -85,13 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ stats, onSwitchStream }) => {
           Refresh
         </Button>
         
-        <Button
-          onClick={handleSignOut}
-          className="self-end px-4 py-2 text-sm bg-red-500/20 hover:bg-red-500/30 text-red-500 border border-red-500/30 rounded-md"
-          variant="outline"
-        >
-          Sign Out
-        </Button>
+        
       </div>
     </div>
   );
