@@ -131,8 +131,8 @@ import Sidebar from '@/components/Sidebar';
 export default function Home() {
   // State to hold stats
   const [stats, setStats] = useState({
-    personCount: 0,
-    maleCount: 0,  // Hardcoded male count
+    personCount: 1,
+    maleCount: 1,  // Hardcoded male count
     femaleCount: 0  // Hardcoded female count
   });
 
@@ -151,7 +151,7 @@ export default function Home() {
   const fetchStats = async () => {
     try {
       // const response = await fetch('http://127.0.0.1:5000/analytics'); // FastAPI endpoint
-      const response = await fetch('https://authorized-turkey-authorized-painting.trycloudflare.com/analytics'); // FastAPI endpoint
+      const response = await fetch('https://inter-my-fuel-aqua.trycloudflare.com'); // FastAPI endpoint
       
       if (response.ok) {
         const data = await response.json();

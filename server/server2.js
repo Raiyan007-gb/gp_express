@@ -71,16 +71,17 @@ app.get('/health', (req, res) => {
 // Handle socket.io connections
 io.on('connection', (socket) => {
   log(`🔌 New client connected: ${socket.id}`);
-  
-  // Send frame immediately on connection
-  redis.get('camera:frame').then(frame => {
+
+  // Send initial frame on connection (real-time data)
+  redis.getBuffer('camera:frame').then(frame => {
     if (frame) {
       socket.emit('frame', { buffer: frame.toString('base64') });
     }
   }).catch(err => {
     log(`❌ Error fetching initial frame: ${err.message}`);
   });
-  
+
+  // Listen to disconnect events
   socket.on('disconnect', () => {
     log(`🔌 Client disconnected: ${socket.id}`);
   });
@@ -91,7 +92,7 @@ redisSub.on('message', (channel, message) => {
   if (channel === 'camera:updates' && message === 'new_frame') {
     redis.getBuffer('camera:frame').then(frame => {
       if (frame) {
-        // Emit the frame to all connected clients
+        // Emit the frame to all connected clients in real time
         io.emit('frame', { buffer: frame.toString('base64') });
       }
     }).catch(err => {

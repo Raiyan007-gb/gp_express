@@ -534,7 +534,7 @@ const StreamView: React.FC<StreamViewProps> = ({ stats, streamType = 'rtsp' }) =
       console.log('Connecting to Redis stream socket');
       // Connect to the Node.js server that serves Redis frames
       // socketRef.current = io('http://localhost:9996');
-      socketRef.current = io('https://ordering-sphere-lab-coast.trycloudflare.com');       
+      socketRef.current = io('https://programme-specialist-spirits-stan.trycloudflare.com');       
       
       socketRef.current.on('connect', () => {
         console.log('Connected to Redis stream server');
@@ -661,7 +661,7 @@ const StreamView: React.FC<StreamViewProps> = ({ stats, streamType = 'rtsp' }) =
         <div className="relative w-full h-full">
           <img 
             ref={redisImageRef}
-            alt="waiting for connection"
+            alt="waiting for bus camera connection"
             className={`w-full h-full ${isFullScreen && window.innerWidth <= 1024 ? 'object-cover' : 'object-contain'}`}
           />
           <div className="absolute top-2 left-2 bg-black/50 text-white px-2 py-1 rounded text-sm">
