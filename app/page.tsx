@@ -137,7 +137,7 @@ export default function Home() {
   });
 
   // Hardcoded stream type - change this value to 'rtsp', 'mjpg', or 'redis' as needed
-  const streamType = 'redis';
+  const streamType = 'mp4';
   
   const handleSwitchStream = () => {
     setStats({
